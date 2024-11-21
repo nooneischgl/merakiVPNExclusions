@@ -1,0 +1,6 @@
+﻿Destination,Procotol,Port Number
+1.1.1.0/24,any,any
+8.8.8.8,udp,53
+8.8.8.8,tcp,53
+8.8.8.8,icmp,any
+example.com,dns,any
