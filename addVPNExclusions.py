@@ -14,11 +14,13 @@ parser.add_argument("-exclusionsList", action="store", dest="exclusionslist")
 parser.add_argument("-orgID", action="store", dest="orgid")
 parser.add_argument("-networkName" , action="store", dest="networkname")
 parser.add_argument("-networkTag", action="store", dest="networktag")
+parser.add_argument("-templateName", action="store", dest="templatename")
 args = parser.parse_args()
 
 exclusionslist = args.exclusionslist
 networktag = args.networktag
 networkname = args.networkname
+templatename = args.templatename
 orgid = args.orgid
 
 dashboard = meraki.DashboardAPI(log_path='Logs/')
@@ -44,6 +46,17 @@ def getNetworkIDsfromTag(orgID, networkTag):
             logging.info(f"Network ID {netIDs} Found for Network Named {networkName}")
     
     return netIDs
+
+def getTemplateID(orgID, templateName):
+        #Get Network ID based on Network Name
+    allTemplates = dashboard.organizations.getOrganizationConfigTemplates(orgID)
+    print(allTemplates)
+    for template in allTemplates:
+        if template['name'] == templateName:
+            tempID = template['id']
+            logging.info(f"Template ID {tempID} Found for Template Named {tempID}")
+    
+    return [tempID]
 
 
 def readExclusionList(exclusionslist):
@@ -93,7 +106,7 @@ def readExclusionList(exclusionslist):
 
 def addVPNExclusions(exclusionsPayload, networkIDs):
     for network in networkIDs:
-        dashboard.appliance.updateNetworkApplianceTrafficShapingVpnExclusions(network, custom = exclusionsPayload)
+        dashboard.appliance.updateNetworkApplianceTrafficShapingVpnExclusions(network, custom = exclusionsPayload, majorApplications = [])
 
 
 def is_valid_ipv4_or_cidr(value: str) -> bool:
@@ -148,6 +161,11 @@ def main():
     if networktag:
         ids = getNetworkIDsfromTag(orgid, networktag)
         addVPNExclusions(payload, ids)
+
+    if templatename:
+        ids = getTemplateID(orgid, templatename)
+        addVPNExclusions(payload, ids)
+
 
 if __name__ == "__main__":
     main()
