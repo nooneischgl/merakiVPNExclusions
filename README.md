@@ -3,6 +3,9 @@
 
 # Installation
 
+## Create venv virtual enviorment 
+```python -m venv .venv```
+
 ## Activate venv
 #### PowerShell / Windows 
 ``` .venv/Scripts/Activate.ps1 ```
