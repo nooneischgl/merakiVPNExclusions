@@ -3,8 +3,16 @@
 
 # Installation
 
+## Clone Repo and Go to Project Folder
+``` git clone https://github.com/nooneischgl/merakiVPNExclusions.git```
+
+``` cd merakiVPNExclusions```
+
 ## Create venv virtual enviorment 
 ```python -m venv .venv```
+
+## Clone Repo and Install Python Dependencies 
+```pip install -r requirements.txt```
 
 ## Activate venv
 #### PowerShell / Windows 
@@ -22,10 +30,14 @@
 # Usage 
 **Arguments are case sensitive**  
 ```
-git clone
-pip install -r requirements.txt
 python addVPNExclusions.py -orgID <MerakiOrgID> [-networkName <MerakiNetworkName> | -networkTag <MerakiNetworkTag> | -templateName <MerakiTemplateName>] -exclusionsList <exclusionlistFilename.csv>
 ```
+- Provide your Meraki Org ID with ```-orgID```
+- Select which network, network Tag or template you want to be configured with the following Args
+  - ```-networkName```
+  - ```-networkTag```
+  - ```-templateName```
+- Provide what VPN exclusions you want configured using the a CSV file see the provided example file **exclusionListExample.csv** `-exclusionsList`
 
 # Reminders / Gottchas
 - **This script does not append put fully replaces any exisiting VPN Exclusions**
