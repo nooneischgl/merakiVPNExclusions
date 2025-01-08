@@ -11,7 +11,7 @@
 ## Create venv virtual enviorment 
 ```python -m venv .venv```
 
-## Clone Repo and Install Python Dependencies 
+## Install Python Dependencies 
 ```pip install -r requirements.txt```
 
 ## Activate venv
